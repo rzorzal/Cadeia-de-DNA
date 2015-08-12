@@ -75,9 +75,9 @@ public class Dinamica implements Runnable {
         if (!comparador) {
             Constantes.executando = false;
         }
-        if (!comparador) {
+        /*if (!comparador) {
             fr_exe.getContentPane().setBackground(Color.black);
-        }
+        }*/
     }
 
     public FrameVis getFr_exe() {

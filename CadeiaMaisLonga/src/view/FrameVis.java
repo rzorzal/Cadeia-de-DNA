@@ -16,12 +16,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import util.Constantes;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *
  * @author ricardo
  */
-public class FrameVis extends JFrame implements WindowListener{
+public class FrameVis extends JFrame implements WindowListener {
 
     private String origem;
 
@@ -31,6 +32,7 @@ public class FrameVis extends JFrame implements WindowListener{
 
     private JSeparator separador;
     private JButton iniciar;
+    private JButton contraste;
     private JLabel tamanhos;
     private JLabel tmpRec;
     private JLabel tmpDin;
@@ -42,6 +44,7 @@ public class FrameVis extends JFrame implements WindowListener{
     public FrameVis(String org) {
         super();
         origem = org;
+        FrameVis esse = this;
         this.setLayout(null);
         if (org.equalsIgnoreCase("Visualizar")) {
             this.setTitle("Visualização da execução");
@@ -109,17 +112,15 @@ public class FrameVis extends JFrame implements WindowListener{
             tempo.setSize(this.getWidth(), 80);
             tempo.setLocation(0, iniciar.getLocation().y - 50);
 
-            FrameVis esse = this;
-
             iniciar.addMouseListener(new MouseListener() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    
+
                     if (iniciar.getText().equals("Parar")) {
                         exec.setParar(true);
                     }
-                    
+
                     if (!Constantes.executando) {
                         if (iniciar.getText().equals("Iniciar")) {
                             exec = new Executor(esse, true);
@@ -130,8 +131,6 @@ public class FrameVis extends JFrame implements WindowListener{
                             iniciar.setText("Parar");
                         }
                     }
-
-                    
 
                 }
 
@@ -159,6 +158,40 @@ public class FrameVis extends JFrame implements WindowListener{
             this.add(tmpRec);
             this.add(tempo);
         }
+        contraste = new JButton("Contraste");
+        contraste.setSize(140, 30);
+        contraste.setLocation(this.getWidth() / 2 - contraste.getWidth() / 2, this.getHeight() - contraste.getHeight());
+
+        contraste.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(esse.getContentPane().getBackground().equals(Color.black)){
+                    esse.getContentPane().setBackground(new ColorUIResource(238, 238, 238));
+                } else {
+                    esse.getContentPane().setBackground(Color.black);
+                }
+                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+
+        this.add(contraste);
         this.setVisible(true);
         this.addWindowListener(this);
     }
